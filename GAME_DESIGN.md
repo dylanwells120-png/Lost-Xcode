@@ -1,7 +1,7 @@
 # LOST — Game Design & Production Outline
 
 **Genre:** Third-person 3D narrative horror / drama, open world, post-apocalyptic
-**Platforms:** iPhone / iPad / Mac (Apple silicon), built in Xcode
+**Platforms:** Mac first (Apple silicon, controller-first); iPhone / iPad later. Built in Xcode
 **Tone:** *Little Nightmares* meets *The Last of Us* meets *Inside*. Quiet, vulnerable, tense. Rose is never a fighter — she hides, sneaks, solves, and hopes.
 
 ---
@@ -208,8 +208,15 @@ Game designer/writer · Swift/gameplay programmer · 3D artist/environment · An
 
 ---
 
-## 6. Open Questions
-- RealityKit/SceneKit (all-native) vs. Unity/Unreal with Xcode as export target?
-- Touch-first (iPhone/iPad) or controller/Mac-first?
-- Single-player premium purchase (recommended) vs. free + IAP?
-- Art style: low-poly stylized (recommended) vs. realistic?
+## 6. Decisions Locked
+
+- **Engine:** fully Apple-native (Swift, RealityKit/SceneKit, Metal, GameplayKit). No Unity/Unreal.
+- **Platform priority:** Mac and game controller first (Apple silicon, GameController framework). iPhone/iPad touch support comes later.
+- **Business model:** one-time premium purchase plus optional in-app purchases (StoreKit 2). IAP should stay cosmetic or convenience (e.g. soundtrack, art book, outfits); never gate story or pay-to-win.
+- **Art style:** semi-realistic. Keep the lighting and fog strong and keep texture and polygon budgets disciplined so it runs well on Apple silicon.
+- **Rose:** an existing character model is available. First task is importing it (USDZ, via Reality Composer Pro), checking the rig and skeleton, and hooking up walk/run/crouch animations.
+
+## 7. Open Questions
+- Which format is the Rose model in (FBX, USD, Blender, other), and is it already rigged?
+- Minimum Mac spec to target (e.g. M1, macOS 14)?
+- Which cosmetic or convenience items should the in-app purchases offer?
