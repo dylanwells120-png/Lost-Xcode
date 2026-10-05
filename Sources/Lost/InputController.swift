@@ -14,7 +14,8 @@ final class InputController: ObservableObject {
         NotificationCenter.default.addObserver(
             forName: .GCControllerDidConnect, object: nil, queue: .main
         ) { [weak self] _ in
-            Task { @MainActor in self?.bindFirstController() }
+            guard let self else { return }
+            Task { @MainActor in self.bindFirstController() }
         }
         bindFirstController()
     }
@@ -22,17 +23,21 @@ final class InputController: ObservableObject {
     private func bindFirstController() {
         guard let pad = GCController.controllers().first?.extendedGamepad else { return }
         pad.leftThumbstick.valueChangedHandler = { [weak self] _, x, y in
-            Task { @MainActor in self?.move = SIMD2(x, y) }
+            guard let self else { return }
+            Task { @MainActor in self.move = SIMD2(x, y) }
         }
         // Right trigger = run, B = crouch (hold), X = flashlight.
         pad.rightTrigger.valueChangedHandler = { [weak self] _, value, _ in
-            Task { @MainActor in self?.running = value > 0.5 }
+            guard let self else { return }
+            Task { @MainActor in self.running = value > 0.5 }
         }
         pad.buttonB.valueChangedHandler = { [weak self] _, _, pressed in
-            Task { @MainActor in self?.crouching = pressed }
+            guard let self else { return }
+            Task { @MainActor in self.crouching = pressed }
         }
         pad.buttonX.valueChangedHandler = { [weak self] _, _, pressed in
-            if pressed { Task { @MainActor in self?.flashlightToggled.toggle() } }
+            guard pressed, let self else { return }
+            Task { @MainActor in self.flashlightToggled.toggle() }
         }
     }
 
