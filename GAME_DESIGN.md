@@ -220,3 +220,15 @@ Game designer/writer · Swift/gameplay programmer · 3D artist/environment · An
 - Which format is the Rose model in (FBX, USD, Blender, other), and is it already rigged?
 - Minimum Mac spec to target (e.g. M1, macOS 14)?
 - Which cosmetic or convenience items should the in-app purchases offer?
+
+---
+
+## 8. Rose Character Pipeline (FBX, unrigged)
+
+1. Open the FBX in Blender; check scale (~1.2 m tall), orientation and textures; apply transforms.
+2. Verify the mesh: ~40-80k triangles, clean topology at joints, PBR textures (base color, normal, roughness, AO), and facial blend shapes (fear, relief, etc.).
+3. Rig: start with Mixamo auto-rig for the prototype (retarget for child proportions); move to a Rigify rig if quality demands. AccuRIG is a third option.
+4. Animate: Mixamo idle/walk/run/crouch/climb for the prototype; custom clips for humming, flinching and peeking.
+5. Export USD/USDZ from Blender, inspect in Reality Composer Pro, load in RealityKit and play via `AnimationResource`.
+
+Open items: confirm model ownership/licence (Mixamo terms), whether textures are included, and T-pose vs A-pose.
